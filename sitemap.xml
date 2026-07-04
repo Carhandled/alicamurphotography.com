@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.alicamurphotography.com/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/fire-and-silence.jpg</image:loc>
+      <image:title>Fire and Silence — Miami Beach, Florida</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_7158-HDR.jpg</image:loc>
+      <image:title>Lone Tree at Sunset — Valley Forge, Pennsylvania</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_5906-HDR.jpg</image:loc>
+      <image:title>Bear Lake — Rocky Mountain National Park, Colorado</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6038.jpg</image:loc>
+      <image:title>Dream Lake — Rocky Mountain National Park, Colorado</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6048.jpg</image:loc>
+      <image:title>Storm Over the Rockies — Trail Ridge Road, Colorado</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6473.jpg</image:loc>
+      <image:title>First Light — Assateague Island National Seashore</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6703-HDR.jpg</image:loc>
+      <image:title>Avenue of Oaks — Wormsloe Historic Site, Savannah, Georgia</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6970.jpg</image:loc>
+      <image:title>Atlanta Golden Hour — Atlanta, Georgia</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6993-HDR.jpg</image:loc>
+      <image:title>Atlanta Blue Hour — Jackson Street Bridge, Atlanta, Georgia</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6493.jpg</image:loc>
+      <image:title>Moonrise Over the Pier — Virginia Beach, Virginia</image:title>
+    </image:image>
+  </url>
+</urlset>
