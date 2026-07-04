@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Camur — Fine Art Photography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0A0A0A;
+      --near-black: #111111;
+      --warm-white: #F0EDE8;
+      --gold: #C9A84C;
+      --grey: #2A2A2A;
+      --mid-grey: #888888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--warm-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, transparent 100%);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 18px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--mid-grey);
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--warm-white); }
+
+    /* ── GALLERY ── */
+    .gallery {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,10,10,0.75) 0%,
+        rgba(10,10,10,0.1) 40%,
+        transparent 70%
+      );
+    }
+
+    /* ── SLIDE INFO ── */
+    .slide-info {
+      position: absolute;
+      bottom: 60px;
+      left: 48px;
+      right: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .slide-meta {
+      max-width: 400px;
+    }
+
+    .slide-number {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .slide-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1.1;
+      color: var(--warm-white);
+      margin-bottom: 8px;
+    }
+
+    .slide-location {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+      margin-bottom: 16px;
+    }
+
+    .slide-edition {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--mid-grey);
+      text-transform: uppercase;
+    }
+
+    .slide-edition span {
+      color: var(--gold);
+    }
+
+    /* ── INQUIRE BUTTON ── */
+    .btn-inquire {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid rgba(201, 168, 76, 0.5);
+      color: var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease, background 0.3s ease, color 0.3s ease;
+    }
+
+    .slide.active:hover .btn-inquire {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn-inquire:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── COUNTER ── */
+    .counter {
+      position: fixed;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .counter-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--grey);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .counter-dot.active {
+      background: var(--gold);
+      height: 24px;
+      border-radius: 2px;
+    }
+
+    /* ── NAVIGATION ARROWS ── */
+    .nav-arrow {
+      position: fixed;
+      bottom: 60px;
+      right: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .arrow-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--grey);
+      background: transparent;
+      color: var(--mid-grey);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .arrow-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── PROGRESS ── */
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.6s ease;
+      z-index: 100;
+      opacity: 0.6;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.92);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 480px;
+      padding: 56px;
+      border: 1px solid var(--grey);
+      background: var(--near-black);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: var(--mid-grey);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .modal-close:hover { color: var(--warm-white); }
+
+    .modal-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .modal h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 28px;
+      color: var(--warm-white);
+      margin-bottom: 8px;
+    }
+
+    .modal-subtitle {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--mid-grey);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--grey);
+    }
+
+    .modal-sizes {
+      margin-bottom: 32px;
+    }
+
+    .modal-sizes h4 {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+      margin-bottom: 16px;
+    }
+
+    .size-options {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .size-option {
+      padding: 10px 16px;
+      border: 1px solid var(--grey);
+      background: transparent;
+      color: var(--warm-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .size-option:hover,
+    .size-option.selected {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-form input,
+    .modal-form textarea {
+      background: transparent;
+      border: 1px solid var(--grey);
+      padding: 14px 16px;
+      color: var(--warm-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: none;
+    }
+
+    .modal-form input::placeholder,
+    .modal-form textarea::placeholder {
+      color: var(--mid-grey);
+    }
+
+    .modal-form input:focus,
+    .modal-form textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .modal-form textarea { height: 80px; }
+
+    .btn-submit {
+      padding: 16px;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover { opacity: 0.85; }
+
+    /* ── ABOUT PANEL ── */
+    .about-panel {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 150;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      padding: 48px;
+    }
+
+    .about-panel.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .about-content {
+      max-width: 560px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding-right: 12px;
+    }
+
+    .about-content::-webkit-scrollbar { width: 2px; }
+    .about-content::-webkit-scrollbar-thumb { background: var(--grey); }
+
+    .about-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+
+    .about-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 48px;
+      line-height: 1.1;
+      color: var(--warm-white);
+      margin-bottom: 32px;
+    }
+
+    .about-content p {
+      font-size: 13px;
+      line-height: 1.9;
+      color: var(--mid-grey);
+      margin-bottom: 24px;
+    }
+
+    .about-content p strong {
+      color: var(--warm-white);
+      font-weight: 400;
+    }
+
+    .about-close {
+      margin-top: 40px;
+      background: none;
+      border: 1px solid var(--grey);
+      color: var(--mid-grey);
+      padding: 12px 32px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .about-close:hover {
+      border-color: var(--warm-white);
+      color: var(--warm-white);
+    }
+
+    /* ── INTRO SCREEN ── */
+    .intro {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease;
+    }
+
+    .intro.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .intro-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      margin-bottom: 4px;
+    }
+
+    .intro-sub {
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 48px;
+    }
+
+    .intro-line {
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      animation: expandLine 1.5s ease forwards 0.5s;
+    }
+
+    @keyframes expandLine {
+      to { width: 60px; }
+    }
+
+    .intro-enter {
+      margin-top: 48px;
+      background: none;
+      border: 1px solid var(--grey);
+      color: var(--mid-grey);
+      padding: 14px 48px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s;
+      animation: fadeInBtn 0.8s ease forwards 1.5s;
+      opacity: 0;
+    }
+
+    @keyframes fadeInBtn {
+      to { opacity: 1; color: var(--warm-white); border-color: var(--grey); }
+    }
+
+    .intro-enter:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--grey);
+      color: var(--warm-white);
+      padding: 14px 28px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      opacity: 0;
+      transition: all 0.4s ease;
+      z-index: 400;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <div class="intro-logo">Ali Camur</div>
+  <div class="intro-sub">Fine Art Photography</div>
+  <div class="intro-line"></div>
+  <button class="intro-enter" onclick="enterGallery()">Enter</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Ali <span>Camur</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="openAbout(); return false;">About</a></li>
+    <li><a href="#" onclick="openContact(); return false;">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- GALLERY -->
+<div class="gallery" id="gallery">
+
+  <div class="slide active" data-index="0">
+    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=90" alt="Fire and Silence" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">01 / 10</span>
+        <h2 class="slide-title">Fire and Silence</h2>
+        <div class="slide-location">South Pointe Sunrise · Miami Beach, Florida</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Fire and Silence', 'Miami Beach, Florida'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="1">
+    <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=90" alt="Bear Lake" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">02 / 10</span>
+        <h2 class="slide-title">Mirror Sky</h2>
+        <div class="slide-location">Bear Lake · Rocky Mountain National Park, Colorado</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Mirror Sky', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="2">
+    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1920&q=90" alt="Valley Forge" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">03 / 10</span>
+        <h2 class="slide-title">Lone Tree at Sunset</h2>
+        <div class="slide-location">Valley Forge · Pennsylvania</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Lone Tree at Sunset', 'Valley Forge, Pennsylvania'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="3">
+    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=90" alt="Trail Ridge Road" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">04 / 10</span>
+        <h2 class="slide-title">Storm Over the Rockies</h2>
+        <div class="slide-location">Trail Ridge Road · Rocky Mountain National Park, Colorado</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Storm Over the Rockies', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="4">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=90" alt="Virginia Beach Pier" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">05 / 10</span>
+        <h2 class="slide-title">Moonrise Over the Pier</h2>
+        <div class="slide-location">Virginia Beach Fishing Pier · Virginia</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Moonrise Over the Pier', 'Virginia Beach, Virginia'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="5">
+    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=90" alt="Dream Lake" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">06 / 10</span>
+        <h2 class="slide-title">Dream Lake</h2>
+        <div class="slide-location">Dream Lake · Rocky Mountain National Park, Colorado</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Dream Lake', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="6">
+    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=90" alt="Atlanta Blue Hour" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">07 / 10</span>
+        <h2 class="slide-title">Atlanta Blue Hour</h2>
+        <div class="slide-location">Jackson Street Bridge · Atlanta, Georgia</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Atlanta Blue Hour', 'Atlanta, Georgia'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="7">
+    <img src="https://images.unsplash.com/photo-1440581572325-0bea30075d9d?w=1920&q=90" alt="Delaware Sunrise" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">08 / 10</span>
+        <h2 class="slide-title">First Light</h2>
+        <div class="slide-location">Atlantic Sunrise · Delaware Coast</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('First Light', 'Delaware Coast'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="8">
+    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=90" alt="Wormsloe" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">09 / 10</span>
+        <h2 class="slide-title">Avenue of Oaks</h2>
+        <div class="slide-location">Wormsloe Historic Site · Savannah, Georgia</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Avenue of Oaks', 'Savannah, Georgia'); return false;">Inquire</a>
+    </div>
+  </div>
+
+  <div class="slide" data-index="9">
+    <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=90" alt="Lake Haiyaha" />
+    <div class="slide-overlay"></div>
+    <div class="slide-info">
+      <div class="slide-meta">
+        <span class="slide-number">10 / 10</span>
+        <h2 class="slide-title">Lake Haiyaha</h2>
+        <div class="slide-location">Rocky Mountain National Park · Colorado</div>
+        <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
+      </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Lake Haiyaha', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- DOTS -->
+<div class="counter" id="counter"></div>
+
+<!-- ARROWS -->
+<div class="nav-arrow">
+  <button class="arrow-btn" onclick="prevSlide()">↑</button>
+  <button class="arrow-btn" onclick="nextSlide()">↓</button>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- INQUIRY MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-eyebrow">Inquire</div>
+    <h2 id="modalTitle">Fire and Silence</h2>
+    <div class="modal-subtitle" id="modalLocation">South Pointe Sunrise · Miami Beach, Florida</div>
+
+    <div class="modal-sizes">
+      <h4>Select Size</h4>
+      <div class="size-options">
+        <button class="size-option" onclick="selectSize(this)">16 × 10"<br><small style="color:var(--mid-grey);font-size:9px;">$350</small></button>
+        <button class="size-option" onclick="selectSize(this)">24 × 16"<br><small style="color:var(--mid-grey);font-size:9px;">$650</small></button>
+        <button class="size-option" onclick="selectSize(this)">30 × 20"<br><small style="color:var(--mid-grey);font-size:9px;">$950</small></button>
+        <button class="size-option" onclick="selectSize(this)">40 × 27"<br><small style="color:var(--mid-grey);font-size:9px;">$1,400</small></button>
+        <button class="size-option" onclick="selectSize(this)">48 × 32"<br><small style="color:var(--mid-grey);font-size:9px;">$1,800</small></button>
+      </div>
+    </div>
+
+    <div class="modal-form">
+      <input type="text" placeholder="Your Name" id="inquiryName" />
+      <input type="email" placeholder="Email Address" id="inquiryEmail" />
+      <textarea placeholder="Message (optional)"></textarea>
+      <button class="btn-submit" onclick="submitInquiry()">Send Inquiry</button>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT PANEL -->
+<div class="about-panel" id="aboutPanel">
+  <div class="about-content">
+    <div class="about-eyebrow">Ali Camur</div>
+    <h2>Fine Art<br>Photography</h2>
+    <p>Born and raised in Istanbul, I earned my Bachelor's in Fine Art Photography &amp; Film from T.C. Maltepe University, graduating in 2010. My training was analog — darkroom work, learning light the slow way. One of my first cameras was one I built myself from a shoebox.</p>
+    <p>That same year, as Istanbul was named a European Capital of Culture, I was selected for <em>Ben Haliç</em> — a book pairing forty neighborhoods along the Golden Horn with forty writers, one for each town. I was the photographer for my author's chapter, translating the place they wrote about into images.</p>
+    <p>I moved to the United States in 2015. I've been making photographs since my school years, but landscape work is where I've returned most recently, and most seriously. There's no single moment that started it — just a growing pull toward being out before sunrise, waiting for light to do something worth keeping, and the quiet satisfaction of an image that holds together without needing explanation.</p>
+    <p>My work moves between coastlines, mountains, and cityscapes, shot in the hours when a place shows a version of itself most people never see. The aesthetic is cinematic and unforced — <strong>warmth without exaggeration, drama without noise.</strong></p>
+    <p>Each image here is offered as a <strong>limited metal print, edition of 50</strong>. Printed on premium aluminum with a high-gloss finish that gives depth and luminosity no paper can match, every piece ships with a certificate of authenticity, hand-signed and numbered. When an edition is complete, that image is retired.</p>
+    <p>Based in King of Prussia, Pennsylvania. Shooting across the American landscape.</p>
+    <button class="about-close" onclick="closeAbout()">Return to Gallery</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Inquiry sent — I'll be in touch within 24 hours.</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('counter');
+  const progressBar = document.getElementById('progressBar');
+  let current = 0;
+  let isAnimating = false;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'counter-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    counter.appendChild(dot);
+  });
+
+  function updateProgress() {
+    const pct = ((current + 1) / slides.length) * 100;
+    progressBar.style.width = pct + '%';
+  }
+
+  function goToSlide(index) {
+    if (isAnimating || index === current) return;
+    isAnimating = true;
+    slides[current].classList.remove('active');
+    document.querySelectorAll('.counter-dot')[current].classList.remove('active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.counter-dot')[current].classList.add('active');
+    updateProgress();
+    setTimeout(() => { isAnimating = false; }, 1200);
+  }
+
+  function nextSlide() { goToSlide(current + 1); }
+  function prevSlide() { goToSlide(current - 1); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'Escape') { closeModal(); closeAbout(); }
+  });
+
+  // Scroll / wheel navigation
+  let wheelTimer;
+  document.addEventListener('wheel', e => {
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => {
+      if (e.deltaY > 0) nextSlide();
+      else prevSlide();
+    }, 50);
+  }, { passive: true });
+
+  // Intro
+  function enterGallery() {
+    document.getElementById('intro').classList.add('hidden');
+    setTimeout(() => { document.getElementById('intro').style.display = 'none'; }, 1000);
+    updateProgress();
+  }
+
+  // Modal
+  function openModal(title, location) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalLocation').textContent = location;
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+
+  function selectSize(btn) {
+    document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  function submitInquiry() {
+    const name = document.getElementById('inquiryName').value;
+    const email = document.getElementById('inquiryEmail').value;
+    if (!name || !email) return;
+    closeModal();
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+
+  // About
+  function openAbout() { document.getElementById('aboutPanel').classList.add('open'); }
+  function closeAbout() { document.getElementById('aboutPanel').classList.remove('open'); }
+
+  function openContact() { openModal('General Inquiry', ''); }
+
+  updateProgress();
+</script>
+</body>
+</html>
