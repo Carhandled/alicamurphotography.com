@@ -4,6 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ali Camur — Fine Art Photography</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/image/logo.png" />
+  <link rel="apple-touch-icon" href="assets/image/logo.png" />
+
+  <!-- Social share preview (Open Graph + Twitter) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ali Camur — Fine Art Photography" />
+  <meta property="og:description" content="Limited-edition metal prints. Coastlines, mountains, and cityscapes shot in the light most people never see." />
+  <meta property="og:image" content="assets/image/fire-and-silence.jpg" />
+  <meta property="og:url" content="https://www.alicamurphotography.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ali Camur — Fine Art Photography" />
+  <meta name="twitter:description" content="Limited-edition metal prints. Coastlines, mountains, and cityscapes shot in the light most people never see." />
+  <meta name="twitter:image" content="assets/image/fire-and-silence.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -525,6 +540,20 @@
       margin-bottom: 4px;
     }
 
+    .intro-logo-img {
+      width: 340px;
+      max-width: 72vw;
+      height: auto;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .nav-logo-img {
+      height: 54px;
+      width: auto;
+      display: block;
+    }
+
     .intro-sub {
       font-size: 9px;
       letter-spacing: 0.4em;
@@ -596,15 +625,14 @@
 
 <!-- INTRO -->
 <div class="intro" id="intro">
-  <div class="intro-logo">Ali Camur</div>
-  <div class="intro-sub">Fine Art Photography</div>
+  <img src="assets/image/logo.png" alt="Ali Camur Photography" class="intro-logo-img" />
   <div class="intro-line"></div>
   <button class="intro-enter" onclick="enterGallery()">Enter</button>
 </div>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Ali <span>Camur</span></a>
+  <a href="#" class="nav-logo"><img src="assets/image/logo.png" alt="Ali Camur Photography" class="nav-logo-img" /></a>
   <ul class="nav-links">
     <li><a href="#" onclick="openAbout(); return false;">About</a></li>
     <li><a href="#" onclick="openContact(); return false;">Contact</a></li>
@@ -885,6 +913,8 @@
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalLocation').textContent = location;
     document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
+    // Show the size selector for specific prints; hide it for general contact
+    document.querySelector('.modal-sizes').style.display = '';
     document.getElementById('modalOverlay').classList.add('open');
   }
 
@@ -956,7 +986,15 @@
   function openAbout() { document.getElementById('aboutPanel').classList.add('open'); }
   function closeAbout() { document.getElementById('aboutPanel').classList.remove('open'); }
 
-  function openContact() { openModal('General Inquiry', ''); }
+  function openContact() {
+    currentPrint = 'General Inquiry';
+    currentLocation = '';
+    selectedSize = '';
+    document.getElementById('modalTitle').textContent = 'Get in Touch';
+    document.getElementById('modalLocation').textContent = 'Questions, commissions, or print requests';
+    document.querySelector('.modal-sizes').style.display = 'none';
+    document.getElementById('modalOverlay').classList.add('open');
+  }
 
   updateProgress();
 </script>
