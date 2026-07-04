@@ -790,8 +790,8 @@
     <div class="modal-form">
       <input type="text" placeholder="Your Name" id="inquiryName" />
       <input type="email" placeholder="Email Address" id="inquiryEmail" />
-      <textarea placeholder="Message (optional)"></textarea>
-      <button class="btn-submit" onclick="submitInquiry()">Send Inquiry</button>
+      <textarea placeholder="Message (optional)" id="inquiryMessage"></textarea>
+      <button class="btn-submit" id="submitBtn" onclick="submitInquiry()">Send Inquiry</button>
     </div>
   </div>
 </div>
@@ -874,9 +874,17 @@
   }
 
   // Modal
+  let currentPrint = '';
+  let currentLocation = '';
+  let selectedSize = '';
+
   function openModal(title, location) {
+    currentPrint = title;
+    currentLocation = location;
+    selectedSize = '';
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalLocation').textContent = location;
+    document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
     document.getElementById('modalOverlay').classList.add('open');
   }
 
@@ -887,16 +895,61 @@
   function selectSize(btn) {
     document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
+    // First line of the button text is the dimension (e.g. "24 × 16")
+    selectedSize = btn.textContent.trim().split('$')[0].trim();
   }
 
-  function submitInquiry() {
-    const name = document.getElementById('inquiryName').value;
-    const email = document.getElementById('inquiryEmail').value;
-    if (!name || !email) return;
-    closeModal();
-    const toast = document.getElementById('toast');
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 4000);
+  async function submitInquiry() {
+    const name = document.getElementById('inquiryName').value.trim();
+    const email = document.getElementById('inquiryEmail').value.trim();
+    const message = document.getElementById('inquiryMessage').value.trim();
+    const btn = document.getElementById('submitBtn');
+
+    if (!name || !email) {
+      btn.textContent = 'Name and email required';
+      setTimeout(() => { btn.textContent = 'Send Inquiry'; }, 2500);
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const payload = {
+      name: name,
+      email: email,
+      print: currentPrint,
+      location: currentLocation,
+      size: selectedSize || 'Not specified',
+      message: message || '(none)',
+      _subject: 'New print inquiry: ' + currentPrint + (selectedSize ? ' — ' + selectedSize : '')
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xdaryvbb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        closeModal();
+        // reset fields
+        document.getElementById('inquiryName').value = '';
+        document.getElementById('inquiryEmail').value = '';
+        document.getElementById('inquiryMessage').value = '';
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 4000);
+      } else {
+        btn.textContent = 'Something went wrong — try again';
+        setTimeout(() => { btn.textContent = 'Send Inquiry'; }, 3000);
+      }
+    } catch (err) {
+      btn.textContent = 'Connection error — try again';
+      setTimeout(() => { btn.textContent = 'Send Inquiry'; }, 3000);
+    } finally {
+      btn.disabled = false;
+    }
   }
 
   // About
