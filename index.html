@@ -417,6 +417,14 @@
       margin-bottom: 32px;
     }
 
+    .size-note {
+      font-size: 10px;
+      line-height: 1.7;
+      color: var(--mid-grey);
+      margin-top: 16px;
+      letter-spacing: 0.02em;
+    }
+
     .modal-sizes h4 {
       font-size: 10px;
       letter-spacing: 0.25em;
@@ -865,19 +873,20 @@
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-eyebrow">Inquire</div>
+    <div class="modal-eyebrow" id="modalEyebrow">Inquire</div>
     <h2 id="modalTitle">Fire and Silence</h2>
     <div class="modal-subtitle" id="modalLocation">South Pointe Sunrise · Miami Beach, Florida</div>
 
     <div class="modal-sizes">
-      <h4>Select Size</h4>
+      <h4>Size of Interest</h4>
       <div class="size-options">
-        <button class="size-option" onclick="selectSize(this)">16 × 10"<br><small style="color:var(--mid-grey);font-size:9px;">$350</small></button>
-        <button class="size-option" onclick="selectSize(this)">24 × 16"<br><small style="color:var(--mid-grey);font-size:9px;">$650</small></button>
-        <button class="size-option" onclick="selectSize(this)">30 × 20"<br><small style="color:var(--mid-grey);font-size:9px;">$950</small></button>
-        <button class="size-option" onclick="selectSize(this)">40 × 27"<br><small style="color:var(--mid-grey);font-size:9px;">$1,400</small></button>
-        <button class="size-option" onclick="selectSize(this)">48 × 32"<br><small style="color:var(--mid-grey);font-size:9px;">$1,800</small></button>
+        <button class="size-option" onclick="selectSize(this)">16 × 9"</button>
+        <button class="size-option" onclick="selectSize(this)">24 × 14"</button>
+        <button class="size-option" onclick="selectSize(this)">30 × 17"</button>
+        <button class="size-option" onclick="selectSize(this)">36 × 20"</button>
+        <button class="size-option" onclick="selectSize(this)">48 × 27"</button>
       </div>
+      <p class="size-note">Each piece is a limited metal print, edition of 50 — signed, numbered, with a certificate of authenticity. Select a size and I'll send pricing and availability.</p>
     </div>
 
     <div class="modal-form">
@@ -975,6 +984,7 @@
     currentPrint = title;
     currentLocation = location;
     selectedSize = '';
+    document.getElementById('modalEyebrow').textContent = 'Inquire';
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalLocation').textContent = location;
     document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
@@ -990,8 +1000,7 @@
   function selectSize(btn) {
     document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
-    // First line of the button text is the dimension (e.g. "24 × 16")
-    selectedSize = btn.textContent.trim().split('$')[0].trim();
+    selectedSize = btn.textContent.trim();
   }
 
   async function submitInquiry() {
@@ -1055,8 +1064,9 @@
     currentPrint = 'General Inquiry';
     currentLocation = '';
     selectedSize = '';
+    document.getElementById('modalEyebrow').textContent = 'Inquire';
     document.getElementById('modalTitle').textContent = 'Get in Touch';
-    document.getElementById('modalLocation').textContent = 'Questions, commissions, or print requests';
+    document.getElementById('modalLocation').textContent = 'Questions, commissions, or print requests — I read every message personally.';
     document.querySelector('.modal-sizes').style.display = 'none';
     document.getElementById('modalOverlay').classList.add('open');
   }
