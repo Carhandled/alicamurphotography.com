@@ -815,6 +815,20 @@
     }
     .intro-choices .intro-enter { margin-top: 0; }
     .nav-links a.gal-link.active { color: var(--gold); }
+  
+    /* ── Story + inquire-below-image ── */
+    .slide-context {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.45;
+      color: #b7b1a7;
+      max-width: 54ch;
+      margin: 10px 0 2px;
+    }
+    .slide-info .btn-inquire { position: static; align-self: center; flex-shrink: 0; }
+    .slide.active .slide-info .btn-inquire { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) { .slide-context { font-size: 14px; } }
   </style>
 </head>
 <body>
@@ -845,120 +859,128 @@
   <div class="slide active" data-index="0">
     <div class="slide-frame">
       <img src="assets/image/DSC_5906-HDR.jpg" alt="Bear Lake" />
-      <a href="#" class="btn-inquire" onclick="openModal('Bear Lake', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">01 / 10</span>
         <h2 class="slide-title">Bear Lake</h2>
         <div class="slide-location">Bear Lake · Rocky Mountain National Park, Colorado</div>
+        <p class="slide-context">A subalpine lake in Rocky Mountain National Park, Colorado, ringed by pine beneath the peaks of the Continental Divide.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Bear Lake', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="1">
     <div class="slide-frame">
       <img src="assets/image/DSC_6038.jpg" alt="Dream Lake" />
-      <a href="#" class="btn-inquire" onclick="openModal('Dream Lake', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">02 / 10</span>
         <h2 class="slide-title">Dream Lake</h2>
         <div class="slide-location">Dream Lake · Rocky Mountain National Park, Colorado</div>
+        <p class="slide-context">A glacial lake in Rocky Mountain National Park, set below Hallett Peak and Flattop Mountain.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Dream Lake', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="2">
     <div class="slide-frame">
       <img src="assets/image/DSC_6048.jpg" alt="Storm Over the Rockies" />
-      <a href="#" class="btn-inquire" onclick="openModal('Storm Over the Rockies', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">03 / 10</span>
         <h2 class="slide-title">Storm Over the Rockies</h2>
         <div class="slide-location">Trail Ridge Road · Rocky Mountain National Park, Colorado</div>
+        <p class="slide-context">Trail Ridge Road in Rocky Mountain National Park — the highest continuous paved road in the United States, cresting above 12,000 feet.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Storm Over the Rockies', 'Rocky Mountain National Park, Colorado'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="3">
     <div class="slide-frame">
       <img src="assets/image/DSC_6473.jpg" alt="First Light" />
-      <a href="#" class="btn-inquire" onclick="openModal('First Light', 'Assateague Island National Seashore'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">04 / 10</span>
         <h2 class="slide-title">First Light</h2>
         <div class="slide-location">Atlantic Sunrise · Assateague Island National Seashore</div>
+        <p class="slide-context">Assateague Island National Seashore, a wild Atlantic barrier island known for its undeveloped beaches and free-roaming horses.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('First Light', 'Assateague Island National Seashore'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="4">
     <div class="slide-frame">
       <img src="assets/image/DSC_6703-HDR.jpg" alt="Avenue of Oaks" />
-      <a href="#" class="btn-inquire" onclick="openModal('Avenue of Oaks', 'Savannah, Georgia'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">05 / 10</span>
         <h2 class="slide-title">Avenue of Oaks</h2>
         <div class="slide-location">Wormsloe Historic Site · Savannah, Georgia</div>
+        <p class="slide-context">The Avenue of Oaks at Wormsloe Historic Site near Savannah, Georgia — a mile-and-a-half drive lined with live oaks draped in Spanish moss.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Avenue of Oaks', 'Savannah, Georgia'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="7">
     <div class="slide-frame">
       <img src="assets/image/DSC_7158-HDR.jpg" alt="Lone Tree at Sunset" />
-      <a href="#" class="btn-inquire" onclick="openModal('Lone Tree at Sunset', 'Valley Forge, Pennsylvania'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">08 / 10</span>
         <h2 class="slide-title">Lone Tree at Sunset</h2>
         <div class="slide-location">Valley Forge · Pennsylvania</div>
+        <p class="slide-context">Valley Forge National Historical Park, Pennsylvania — site of the Continental Army's 1777–78 winter encampment.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Lone Tree at Sunset', 'Valley Forge, Pennsylvania'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="8">
     <div class="slide-frame">
       <img src="assets/image/fire-and-silence.jpg" alt="Fire and Silence" />
-      <a href="#" class="btn-inquire" onclick="openModal('Fire and Silence', 'Miami Beach, Florida'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">09 / 10</span>
         <h2 class="slide-title">Fire and Silence</h2>
         <div class="slide-location">South Pointe Sunset · Miami Beach, Florida</div>
+        <p class="slide-context">South Pointe, at the southern tip of Miami Beach, Florida, where the sand meets the Atlantic.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Fire and Silence', 'Miami Beach, Florida'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="9">
     <div class="slide-frame">
       <img src="assets/image/DSC_6493.jpg" alt="Moonrise Over the Pier" />
-      <a href="#" class="btn-inquire" onclick="openModal('Moonrise Over the Pier', 'Virginia Beach, Virginia'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">10 / 10</span>
         <h2 class="slide-title">Moonrise Over the Pier</h2>
         <div class="slide-location">Virginia Beach Fishing Pier · Virginia</div>
+        <p class="slide-context">The Virginia Beach Fishing Pier, a longtime landmark on the Atlantic oceanfront.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Moonrise Over the Pier', 'Virginia Beach, Virginia'); return false;">Inquire</a>
       </div>
   </div>
 
@@ -966,15 +988,16 @@
   <div class="slide" data-index="14">
     <div class="slide-frame">
       <img src="assets/image/DSC_7699.jpg" alt="Slack Water" />
-      <a href="#" class="btn-inquire" onclick="openModal('Slack Water', 'Philadelphia, Pennsylvania'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">09 / 09</span>
         <h2 class="slide-title">Slack Water</h2>
         <div class="slide-location">Boathouse Row · Philadelphia, Pennsylvania</div>
+        <p class="slide-context">Boathouse Row on the Schuylkill River in Philadelphia — historic rowing-club boathouses below the Fairmount Water Works.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Slack Water', 'Philadelphia, Pennsylvania'); return false;">Inquire</a>
       </div>
   </div>
 </div>
@@ -983,90 +1006,96 @@
   <div class="slide active" data-index="5">
     <div class="slide-frame">
       <img src="assets/image/DSC_6970.jpg" alt="Atlanta Golden Hour" />
-      <a href="#" class="btn-inquire" onclick="openModal('Atlanta Golden Hour', 'Atlanta, Georgia'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">06 / 10</span>
         <h2 class="slide-title">Atlanta Golden Hour</h2>
         <div class="slide-location">Downtown Skyline · Atlanta, Georgia</div>
+        <p class="slide-context">The downtown Atlanta skyline at sunset.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Atlanta Golden Hour', 'Atlanta, Georgia'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="6">
     <div class="slide-frame">
       <img src="assets/image/DSC_6993-HDR.jpg" alt="Atlanta Blue Hour" />
-      <a href="#" class="btn-inquire" onclick="openModal('Atlanta Blue Hour', 'Atlanta, Georgia'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">07 / 10</span>
         <h2 class="slide-title">Atlanta Blue Hour</h2>
         <div class="slide-location">Jackson Street Bridge · Atlanta, Georgia</div>
+        <p class="slide-context">Downtown Atlanta from the Jackson Street Bridge — the city's classic skyline vantage.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Atlanta Blue Hour', 'Atlanta, Georgia'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="10">
     <div class="slide-frame">
       <img src="assets/image/DSC_7727.jpg" alt="Ember Hour" />
-      <a href="#" class="btn-inquire" onclick="openModal('Ember Hour', 'Manhattan, New York'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">03 / 06</span>
         <h2 class="slide-title">Ember Hour</h2>
         <div class="slide-location">East River Sunset · Manhattan, New York</div>
+        <p class="slide-context">The Midtown Manhattan skyline at sunset, seen across the East River.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Ember Hour', 'Manhattan, New York'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="11">
     <div class="slide-frame">
       <img src="assets/image/DSC_7885.jpg" alt="The Vanishing City" />
-      <a href="#" class="btn-inquire" onclick="openModal('The Vanishing City', 'Brooklyn, New York'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">04 / 06</span>
         <h2 class="slide-title">The Vanishing City</h2>
         <div class="slide-location">East River Fog · Brooklyn, New York</div>
+        <p class="slide-context">Lower Manhattan and the Brooklyn Bridge from Brooklyn Bridge Park, with Jane's Carousel at the water's edge.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('The Vanishing City', 'Brooklyn, New York'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="12">
     <div class="slide-frame">
       <img src="assets/image/DSC_7830.jpg" alt="Empire in the Arch" />
-      <a href="#" class="btn-inquire" onclick="openModal('Empire in the Arch', 'DUMBO, Brooklyn, New York'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">05 / 06</span>
         <h2 class="slide-title">Empire in the Arch</h2>
         <div class="slide-location">Manhattan Bridge · DUMBO, Brooklyn</div>
+        <p class="slide-context">The Manhattan Bridge in DUMBO, Brooklyn, framing the Empire State Building down Washington Street.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Empire in the Arch', 'DUMBO, Brooklyn, New York'); return false;">Inquire</a>
       </div>
   </div>
 
   <div class="slide" data-index="13">
     <div class="slide-frame">
       <img src="assets/image/DSC_7664.jpg" alt="Bronze and Fire" />
-      <a href="#" class="btn-inquire" onclick="openModal('Bronze and Fire', 'Philadelphia, Pennsylvania'); return false;">Inquire</a>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
         <span class="slide-number">06 / 06</span>
         <h2 class="slide-title">Bronze and Fire</h2>
         <div class="slide-location">Schuylkill River · Philadelphia, Pennsylvania</div>
+        <p class="slide-context">A statue of the Marquis de Lafayette above the Schuylkill River in Philadelphia.</p>
         <div class="slide-edition">Edition of <span>50</span> · Metal Print</div>
       </div>
+      <a href="#" class="btn-inquire" onclick="openModal('Bronze and Fire', 'Philadelphia, Pennsylvania'); return false;">Inquire</a>
       </div>
   </div>
 </div>
