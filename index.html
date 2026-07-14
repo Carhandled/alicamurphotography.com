@@ -162,6 +162,12 @@
 
     .nav-links a:hover { color: var(--warm-white); }
 
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 32px; height: 32px; background: none; border: none; cursor: pointer; z-index: 101; }
+    .hamburger span { display: block; width: 100%; height: 1px; background: var(--warm-white); transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
     /* ── GALLERY ── */
     .gallery {
       position: fixed;
@@ -751,6 +757,11 @@
       .nav-logo { font-size: 15px; letter-spacing: 0.18em; }
       .nav-links { gap: 18px; }
       .nav-links a { font-size: 9px; letter-spacing: 0.2em; }
+      .hamburger { display: flex; }
+      .nav-links { display: none; position: fixed; top: 0; right: 0; width: 68vw; max-width: 280px; height: 100vh; height: 100dvh; background: var(--near-black); flex-direction: column; align-items: flex-start; justify-content: center; gap: 28px; padding: 48px 32px; border-left: 1px solid var(--grey); z-index: 100; }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { font-size: 11px; }
 
       .slide { padding: 74px 16px 90px; }
       .slide-frame, .slide-info { max-width: 100%; width: 100%; }
@@ -847,7 +858,8 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo" onclick="return false;">Ali <span>Camur</span></a>
-  <ul class="nav-links">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="#" class="gal-link" data-cat="landscape" onclick="openGallery('landscape'); return false;">Landscape</a></li>
     <li><a href="#" class="gal-link" data-cat="cityscape" onclick="openGallery('cityscape'); return false;">Cityscape</a></li>
     <li><a href="#" onclick="openAbout(); return false;">About</a></li>
@@ -1377,6 +1389,15 @@
     document.querySelector('.modal-sizes').style.display = 'none';
     document.getElementById('modalOverlay').classList.add('open');
   }
+
+    function toggleMobileNav() {
+          document.getElementById('hamburger').classList.toggle('open');
+          document.getElementById('navLinks').classList.toggle('open');
+    }
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+          document.getElementById('hamburger').classList.remove('open');
+          document.getElementById('navLinks').classList.remove('open');
+    }));
 
   updateProgress();
 </script>
