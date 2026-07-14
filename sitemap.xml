@@ -7,43 +7,68 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://www.alicamurphotography.com/assets/image/fire-and-silence.jpg</image:loc>
-      <image:title>Fire and Silence — Miami Beach, Florida</image:title>
+      <image:title>Fire and Silence — South Pointe Sunrise, Miami Beach, Florida</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_7158-HDR.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/lone-tree-at-sunset-valley-forge-metal-print.jpg</image:loc>
       <image:title>Lone Tree at Sunset — Valley Forge, Pennsylvania</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_5906-HDR.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/bear-lake-rocky-mountain-metal-print.jpg</image:loc>
       <image:title>Bear Lake — Rocky Mountain National Park, Colorado</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6038.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/dream-lake-rocky-mountain-metal-print.jpg</image:loc>
       <image:title>Dream Lake — Rocky Mountain National Park, Colorado</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6048.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/storm-over-the-rockies-trail-ridge-road-metal-print.jpg</image:loc>
       <image:title>Storm Over the Rockies — Trail Ridge Road, Colorado</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6473.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/first-light-assateague-island-metal-print.jpg</image:loc>
       <image:title>First Light — Assateague Island National Seashore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6703-HDR.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/avenue-of-oaks-savannah-metal-print.jpg</image:loc>
       <image:title>Avenue of Oaks — Wormsloe Historic Site, Savannah, Georgia</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6970.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/atlanta-golden-hour-skyline-metal-print.jpg</image:loc>
       <image:title>Atlanta Golden Hour — Atlanta, Georgia</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6993-HDR.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/atlanta-blue-hour-jackson-street-bridge-metal-print.jpg</image:loc>
       <image:title>Atlanta Blue Hour — Jackson Street Bridge, Atlanta, Georgia</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.alicamurphotography.com/assets/image/DSC_6493.jpg</image:loc>
+      <image:loc>https://www.alicamurphotography.com/assets/image/moonrise-over-the-pier-virginia-beach-metal-print.jpg</image:loc>
       <image:title>Moonrise Over the Pier — Virginia Beach, Virginia</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/slack-water-boathouse-row-philadelphia-metal-print.jpg</image:loc>
+      <image:title>Slack Water — Boathouse Row, Philadelphia, Pennsylvania</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/ember-hour-manhattan-skyline-metal-print.jpg</image:loc>
+      <image:title>Ember Hour — Manhattan, New York</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/vanishing-city-brooklyn-bridge-metal-print.jpg</image:loc>
+      <image:title>The Vanishing City — Brooklyn, New York</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/empire-in-the-arch-manhattan-bridge-metal-print.jpg</image:loc>
+      <image:title>Empire in the Arch — DUMBO, Brooklyn, New York</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.alicamurphotography.com/assets/image/bronze-and-fire-schuylkill-river-metal-print.jpg</image:loc>
+      <image:title>Bronze and Fire — Philadelphia, Pennsylvania</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.alicamurphotography.com/details.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
