@@ -139,6 +139,80 @@
 
   footer a:hover { color: var(--gold); }
 
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    background: transparent;
+    border: 1px solid var(--grey);
+    padding: 14px 16px;
+    color: var(--warm-white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: var(--mid-grey);
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .contact-form textarea { height: 80px; }
+
+  .btn-submit {
+    padding: 16px;
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    margin-top: 8px;
+  }
+
+  .btn-submit:hover { opacity: 0.85; }
+
+  .toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--gold);
+    color: var(--black);
+    padding: 16px 24px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
   @media (max-width: 600px) {
     header { padding: 20px 22px; }
     main { padding: 32px 20px 72px; }
@@ -187,9 +261,15 @@
     <p>The inquiry form collects your name, email, and message solely to respond to your inquiry and fulfill orders. Submissions are processed by Formspree (<a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">formspree.io/legal/privacy-policy</a>). Your information is never sold or shared for marketing. To have your data deleted, email any time.</p>
   </section>
 
-  <section>
+  <section id="contact">
     <h2>Questions</h2>
-    <p>Every message gets a personal reply within 24 hours. <a href="/">Use the contact form</a> to reach me.</p>
+    <p>Every message gets a personal reply within 24 hours.</p>
+    <form class="contact-form" id="detailsContactForm">
+      <input type="text" placeholder="Your Name" id="contactName" />
+      <input type="email" placeholder="Email Address" id="contactEmail" />
+      <textarea placeholder="Message" id="contactMessage"></textarea>
+      <button type="button" class="btn-submit" id="contactSubmitBtn" onclick="submitDetailsContact()">Send Message</button>
+    </form>
   </section>
 </main>
 
@@ -198,6 +278,59 @@
   <a href="/">Contact</a>
   <a href="https://www.instagram.com/alicamurphotography" target="_blank" rel="noopener">Instagram</a>
 </footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Message sent — I'll be in touch within 24 hours.</div>
+
+<script>
+  async function submitDetailsContact() {
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
+    const message = document.getElementById('contactMessage').value.trim();
+    const btn = document.getElementById('contactSubmitBtn');
+
+    if (!name || !email) {
+      btn.textContent = 'Name and email required';
+      setTimeout(() => { btn.textContent = 'Send Message'; }, 2500);
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const payload = {
+      name: name,
+      email: email,
+      message: message || '(no message)',
+      _subject: 'Contact form inquiry from ' + name
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xdaryvbb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        document.getElementById('contactName').value = '';
+        document.getElementById('contactEmail').value = '';
+        document.getElementById('contactMessage').value = '';
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 4000);
+      } else {
+        btn.textContent = 'Something went wrong — try again';
+        setTimeout(() => { btn.textContent = 'Send Message'; }, 3000);
+      }
+    } catch (err) {
+      btn.textContent = 'Connection error — try again';
+      setTimeout(() => { btn.textContent = 'Send Message'; }, 3000);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+</script>
 
 </body>
 </html>
