@@ -1424,9 +1424,9 @@
     <div class="newsletter-eyebrow">Newsletter</div>
     <h2 class="newsletter-title">Follow the New York series</h2>
     <p class="newsletter-sub">New prints and the story behind each one — straight to your inbox. No spam, unsubscribe anytime.</p>
-    <form class="newsletter-form" id="newsletterForm" action="MAILCHIMP_FORM_ACTION" method="post" target="_blank" rel="noopener">
-      <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Email address" />
-      <button type="submit" class="btn-subscribe">Subscribe</button>
+    <form class="newsletter-form" id="newsletterForm" onsubmit="submitNewsletter(this, 'newsletterNote'); return false;">
+      <input type="email" id="newsletterEmail" placeholder="Your email address" required aria-label="Email address" />
+      <button type="submit" class="btn-subscribe" id="newsletterSubmitBtn">Subscribe</button>
     </form>
     <div class="newsletter-note" id="newsletterNote"></div>
   </div>
@@ -1440,11 +1440,11 @@
       <p class="footer-tagline">Fine art metal prints — landscapes &amp; cityscapes, edition of 50.</p>
     </div>
 
-    <form class="footer-newsletter" id="footerNewsletterForm" action="MAILCHIMP_FORM_ACTION" method="post" target="_blank" rel="noopener">
+    <form class="footer-newsletter" id="footerNewsletterForm" onsubmit="submitNewsletter(this, 'footerNewsletterNote'); return false;">
       <label for="footerEmail" class="footer-newsletter-label">Follow the New York series</label>
       <div class="footer-newsletter-row">
-        <input type="email" id="footerEmail" name="EMAIL" placeholder="Your email address" required aria-label="Email address" />
-        <button type="submit" class="btn-subscribe-compact">Subscribe</button>
+        <input type="email" id="footerEmail" placeholder="Your email address" required aria-label="Email address" />
+        <button type="submit" class="btn-subscribe-compact" id="footerNewsletterSubmitBtn">Subscribe</button>
       </div>
       <div class="footer-newsletter-note" id="footerNewsletterNote"></div>
     </form>
@@ -1778,21 +1778,51 @@
           document.getElementById('navLinks').classList.remove('open');
     }));
 
-  // Newsletter signup — until MAILCHIMP_FORM_ACTION is replaced with a real
-  // Mailchimp form action URL, block submission instead of posting nowhere.
-  const NEWSLETTER_NOTE_IDS = { newsletterForm: 'newsletterNote', footerNewsletterForm: 'footerNewsletterNote' };
-  document.querySelectorAll('#newsletterForm, #footerNewsletterForm').forEach(form => {
-    form.addEventListener('submit', e => {
-      if (form.getAttribute('action') === 'MAILCHIMP_FORM_ACTION') {
-        e.preventDefault();
-        const note = document.getElementById(NEWSLETTER_NOTE_IDS[form.id]);
+  // Newsletter signup — same Formspree endpoint as the inquiry and contact forms.
+  async function submitNewsletter(form, noteId) {
+    const emailInput = form.querySelector('input[type="email"]');
+    const email = emailInput.value.trim();
+    const btn = form.querySelector('button[type="submit"]');
+    const note = document.getElementById(noteId);
+    const originalBtnText = btn.textContent;
+
+    if (!email) return false;
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/xdaryvbb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          _subject: 'New newsletter signup: Follow the New York series'
+        })
+      });
+
+      if (res.ok) {
+        emailInput.value = '';
         if (note) {
-          note.textContent = 'Signup isn’t connected yet — check back soon.';
+          note.textContent = 'Subscribed — thanks for following along.';
           setTimeout(() => { note.textContent = ''; }, 4000);
         }
+      } else if (note) {
+        note.textContent = 'Something went wrong — try again.';
+        setTimeout(() => { note.textContent = ''; }, 4000);
       }
-    });
-  });
+    } catch (err) {
+      if (note) {
+        note.textContent = 'Connection error — try again.';
+        setTimeout(() => { note.textContent = ''; }, 4000);
+      }
+    } finally {
+      btn.textContent = originalBtnText;
+      btn.disabled = false;
+    }
+
+    return false;
+  }
 
   const footerYear = document.getElementById('footerYear');
   if (footerYear) footerYear.textContent = new Date().getFullYear();
