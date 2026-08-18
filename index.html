@@ -114,9 +114,21 @@
       color: var(--warm-white);
       font-family: 'Montserrat', sans-serif;
       font-weight: 300;
+    }
+
+    /* Locked while the intro overlay is up, so nothing scrolls behind it */
+    body.intro-lock {
       overflow: hidden;
       height: 100vh;
       width: 100vw;
+    }
+
+    /* ── HERO (gallery viewport) ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
     }
 
     /* ── NAV ── */
@@ -170,10 +182,10 @@
 
     /* ── GALLERY ── */
     .gallery {
-      position: fixed;
+      position: absolute;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
     }
 
     .slide {
@@ -271,6 +283,10 @@
       color: var(--gold);
     }
 
+    .claimed-badge {
+      color: var(--gold);
+    }
+
     /* ── INQUIRE BUTTON ── */
     .btn-inquire {
       display: inline-block;
@@ -304,7 +320,7 @@
 
     /* ── COUNTER ── */
     .counter {
-      position: fixed;
+      position: absolute;
       right: 48px;
       top: 50%;
       transform: translateY(-50%);
@@ -331,7 +347,7 @@
 
     /* ── NAVIGATION ARROWS ── */
     .nav-arrow {
-      position: fixed;
+      position: absolute;
       bottom: 60px;
       right: 48px;
       display: flex;
@@ -359,9 +375,46 @@
       color: var(--gold);
     }
 
+    .arrow-btn.ig-btn {
+      font-size: 9px;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    /* ── SCROLL CUE (points to the newsletter section below the hero) ── */
+    .scroll-cue {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--mid-grey);
+      text-decoration: none;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .scroll-cue:hover { color: var(--gold); }
+
+    .scroll-cue-arrow {
+      font-size: 14px;
+      animation: scrollCueBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollCueBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
     /* ── PROGRESS ── */
     .progress-bar {
-      position: fixed;
+      position: absolute;
       bottom: 0;
       left: 0;
       height: 1px;
@@ -718,6 +771,200 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      padding: 96px 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .newsletter-inner {
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .newsletter-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .newsletter-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1.15;
+      color: var(--warm-white);
+      margin-bottom: 16px;
+    }
+
+    .newsletter-sub {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--mid-grey);
+      margin-bottom: 32px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--grey);
+      padding: 14px 16px;
+      color: var(--warm-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .newsletter-form input::placeholder { color: var(--mid-grey); }
+    .newsletter-form input:focus { border-color: var(--gold); }
+
+    .btn-subscribe {
+      padding: 14px 28px;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.3s;
+    }
+
+    .btn-subscribe:hover { opacity: 0.85; }
+
+    .newsletter-note {
+      margin-top: 14px;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      color: var(--mid-grey);
+      min-height: 14px;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid var(--grey);
+      background: var(--near-black);
+      padding: 56px 48px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    .footer-brand { max-width: 260px; }
+
+    .footer-tagline {
+      margin-top: 12px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--mid-grey);
+    }
+
+    .footer-newsletter { flex: 1; min-width: 260px; max-width: 360px; }
+
+    .footer-newsletter-label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+      margin-bottom: 12px;
+    }
+
+    .footer-newsletter-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .footer-newsletter-row input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: 1px solid var(--grey);
+      padding: 11px 14px;
+      color: var(--warm-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .footer-newsletter-row input::placeholder { color: var(--mid-grey); }
+    .footer-newsletter-row input:focus { border-color: var(--gold); }
+
+    .btn-subscribe-compact {
+      padding: 11px 18px;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.3s;
+    }
+
+    .btn-subscribe-compact:hover { opacity: 0.85; }
+
+    .footer-newsletter-note {
+      margin-top: 10px;
+      font-size: 9px;
+      color: var(--mid-grey);
+      min-height: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: var(--mid-grey);
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      max-width: 1180px;
+      margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--grey);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--mid-grey);
+    }
+
     /* ─────────── RESPONSIVE ─────────── */
 
     /* Touch devices: no hover, so the Inquire button must always be visible */
@@ -789,6 +1036,7 @@
         flex-direction: row;
       }
       .arrow-btn { width: 40px; height: 40px; }
+      .scroll-cue { bottom: 12px; font-size: 8px; }
 
       .modal { padding: 32px 24px; max-width: 92vw; }
       .modal h2 { font-size: 24px; }
@@ -797,6 +1045,16 @@
       .about-content { max-height: 82vh; }
 
       .intro-logo-img { width: 240px; }
+
+      .newsletter { padding: 64px 20px; }
+      .newsletter-title { font-size: 28px; }
+      .newsletter-form { flex-direction: column; }
+
+      .site-footer { padding: 40px 20px 24px; }
+      .footer-inner { flex-direction: column; gap: 32px; }
+      .footer-newsletter { max-width: 100%; }
+      .footer-newsletter-row { flex-direction: column; }
+      .footer-links { flex-direction: row; flex-wrap: wrap; gap: 16px 20px; }
     }
 
     /* Short landscape screens (phones held sideways) */
@@ -834,11 +1092,11 @@
     @media (max-width: 768px) { .slide-context { font-size: 14px; } }
   </style>
 </head>
-<body>
+<body class="intro-lock">
 
 <!-- INTRO -->
 <div class="intro" id="intro">
-  <img src="assets/image/logo.png" alt="Ali Camur Photography" class="intro-logo-img" />
+  <img src="assets/image/logo.png" alt="Ali Camur Photography" class="intro-logo-img" width="500" height="500" />
   <div class="intro-line"></div>
   <div class="intro-choices">
     <button class="intro-enter" onclick="openGallery('landscape')">Landscape</button>
@@ -860,11 +1118,17 @@
   </ul>
 </nav>
 
+<!-- HERO (gallery viewport) -->
+<div class="hero" id="hero">
+
 <!-- GALLERY -->
 <div class="gallery" id="gallery-landscape">
-  <div class="slide active" data-index="0">
+  <div class="slide active" data-index="0" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/bear-lake-rocky-mountain-metal-print.jpg" alt="Bear Lake" />
+      <picture>
+        <source srcset="assets/image/bear-lake-rocky-mountain-metal-print.webp" type="image/webp" />
+        <img src="assets/image/bear-lake-rocky-mountain-metal-print.jpg" alt="Bear Lake, Rocky Mountain National Park, Colorado — limited edition fine art metal print" width="2000" height="1125" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -877,9 +1141,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="1">
+  <div class="slide" data-index="1" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/dream-lake-rocky-mountain-metal-print.jpg" alt="Dream Lake" />
+      <picture>
+        <source data-srcset="assets/image/dream-lake-rocky-mountain-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/dream-lake-rocky-mountain-metal-print.jpg" alt="Dream Lake, Rocky Mountain National Park, Colorado — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -892,9 +1159,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="2">
+  <div class="slide" data-index="2" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/storm-over-the-rockies-trail-ridge-road-metal-print.jpg" alt="Storm Over the Rockies" />
+      <picture>
+        <source data-srcset="assets/image/storm-over-the-rockies-trail-ridge-road-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/storm-over-the-rockies-trail-ridge-road-metal-print.jpg" alt="Storm Over the Rockies, Trail Ridge Road, Rocky Mountain National Park, Colorado — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -907,9 +1177,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="3">
+  <div class="slide" data-index="3" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/first-light-assateague-island-metal-print.jpg" alt="First Light" />
+      <picture>
+        <source data-srcset="assets/image/first-light-assateague-island-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/first-light-assateague-island-metal-print.jpg" alt="First Light, Assateague Island National Seashore — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -922,9 +1195,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="4">
+  <div class="slide" data-index="4" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/avenue-of-oaks-savannah-metal-print.jpg" alt="Avenue of Oaks" />
+      <picture>
+        <source data-srcset="assets/image/avenue-of-oaks-savannah-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/avenue-of-oaks-savannah-metal-print.jpg" alt="Avenue of Oaks, Wormsloe Historic Site, Savannah, Georgia — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -937,9 +1213,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="7">
+  <div class="slide" data-index="7" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/lone-tree-at-sunset-valley-forge-metal-print.jpg" alt="Lone Tree at Sunset" />
+      <picture>
+        <source data-srcset="assets/image/lone-tree-at-sunset-valley-forge-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/lone-tree-at-sunset-valley-forge-metal-print.jpg" alt="Lone Tree at Sunset, Valley Forge, Pennsylvania — limited edition fine art metal print" width="2000" height="1045" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -952,9 +1231,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="8">
+  <div class="slide" data-index="8" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/fire-and-silence.jpg" alt="Fire and Silence" />
+      <picture>
+        <source data-srcset="assets/image/fire-and-silence.webp" type="image/webp" />
+        <img data-src="assets/image/fire-and-silence.jpg" alt="Fire and Silence, South Pointe Sunrise, Miami Beach, Florida — limited edition fine art metal print" width="2000" height="1112" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -967,9 +1249,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="9">
+  <div class="slide" data-index="9" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/moonrise-over-the-pier-virginia-beach-metal-print.jpg" alt="Moonrise Over the Pier" />
+      <picture>
+        <source data-srcset="assets/image/moonrise-over-the-pier-virginia-beach-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/moonrise-over-the-pier-virginia-beach-metal-print.jpg" alt="Moonrise Over the Pier, Virginia Beach Fishing Pier, Virginia — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -983,9 +1268,12 @@
   </div>
 
 
-  <div class="slide" data-index="14">
+  <div class="slide" data-index="14" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/slack-water-boathouse-row-philadelphia-metal-print.jpg" alt="Slack Water" />
+      <picture>
+        <source data-srcset="assets/image/slack-water-boathouse-row-philadelphia-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/slack-water-boathouse-row-philadelphia-metal-print.jpg" alt="Slack Water, Boathouse Row, Philadelphia, Pennsylvania — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -1000,9 +1288,12 @@
 </div>
 
 <div class="gallery" id="gallery-cityscape">
-  <div class="slide active" data-index="5">
+  <div class="slide active" data-index="5" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/atlanta-golden-hour-skyline-metal-print.jpg" alt="Atlanta Golden Hour" />
+      <picture>
+        <source srcset="assets/image/atlanta-golden-hour-skyline-metal-print.webp" type="image/webp" />
+        <img src="assets/image/atlanta-golden-hour-skyline-metal-print.jpg" alt="Atlanta Golden Hour, Downtown Skyline, Atlanta, Georgia — limited edition fine art metal print" width="2000" height="1125" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -1015,9 +1306,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="6">
+  <div class="slide" data-index="6" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/atlanta-blue-hour-jackson-street-bridge-metal-print.jpg" alt="Atlanta Blue Hour" />
+      <picture>
+        <source data-srcset="assets/image/atlanta-blue-hour-jackson-street-bridge-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/atlanta-blue-hour-jackson-street-bridge-metal-print.jpg" alt="Atlanta Blue Hour, Jackson Street Bridge, Atlanta, Georgia — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -1030,9 +1324,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="10">
+  <div class="slide" data-index="10" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/ember-hour-manhattan-skyline-metal-print.jpg" alt="Ember Hour" />
+      <picture>
+        <source data-srcset="assets/image/ember-hour-manhattan-skyline-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/ember-hour-manhattan-skyline-metal-print.jpg" alt="Ember Hour, East River Sunset, Manhattan, New York — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -1045,9 +1342,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="11">
+  <div class="slide" data-index="11" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/vanishing-city-brooklyn-bridge-metal-print.jpg" alt="The Vanishing City" />
+      <picture>
+        <source data-srcset="assets/image/vanishing-city-brooklyn-bridge-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/vanishing-city-brooklyn-bridge-metal-print.jpg" alt="The Vanishing City, East River Fog, Brooklyn, New York — limited edition fine art metal print" width="2000" height="1125" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -1060,9 +1360,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="12">
+  <div class="slide" data-index="12" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/empire-in-the-arch-manhattan-bridge-metal-print.jpg" alt="Empire in the Arch" />
+      <picture>
+        <source data-srcset="assets/image/empire-in-the-arch-manhattan-bridge-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/empire-in-the-arch-manhattan-bridge-metal-print.jpg" alt="Empire in the Arch, Manhattan Bridge, DUMBO, Brooklyn, New York — limited edition fine art metal print" width="1600" height="2000" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -1075,9 +1378,12 @@
       </div>
   </div>
 
-  <div class="slide" data-index="13">
+  <div class="slide" data-index="13" data-claimed="0">
     <div class="slide-frame">
-      <img src="assets/image/bronze-and-fire-schuylkill-river-metal-print.jpg" alt="Bronze and Fire" />
+      <picture>
+        <source data-srcset="assets/image/bronze-and-fire-schuylkill-river-metal-print.webp" type="image/webp" />
+        <img data-src="assets/image/bronze-and-fire-schuylkill-river-metal-print.jpg" alt="Bronze and Fire, Schuylkill River, Philadelphia, Pennsylvania — limited edition fine art metal print" width="2000" height="1330" loading="lazy" class="lazy-slide" />
+      </picture>
     </div>
     <div class="slide-info">
       <div class="slide-meta">
@@ -1098,10 +1404,59 @@
 <div class="nav-arrow">
   <button class="arrow-btn" onclick="prevSlide()">↑</button>
   <button class="arrow-btn" onclick="nextSlide()">↓</button>
+  <a href="https://www.instagram.com/alicamurphotography" target="_blank" rel="noopener" class="arrow-btn ig-btn" aria-label="Follow the series on Instagram" title="Follow the series on Instagram">IG</a>
 </div>
+
+<!-- SCROLL CUE -->
+<a href="#follow" class="scroll-cue">
+  <span>More</span>
+  <span class="scroll-cue-arrow" aria-hidden="true">↓</span>
+</a>
 
 <!-- PROGRESS BAR -->
 <div class="progress-bar" id="progressBar"></div>
+
+</div><!-- /.hero -->
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="follow">
+  <div class="newsletter-inner">
+    <div class="newsletter-eyebrow">Newsletter</div>
+    <h2 class="newsletter-title">Follow the New York series</h2>
+    <p class="newsletter-sub">New prints and the story behind each one — straight to your inbox. No spam, unsubscribe anytime.</p>
+    <form class="newsletter-form" id="newsletterForm" action="MAILCHIMP_FORM_ACTION" method="post" target="_blank" rel="noopener">
+      <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Email address" />
+      <button type="submit" class="btn-subscribe">Subscribe</button>
+    </form>
+    <div class="newsletter-note" id="newsletterNote"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" onclick="return false;">Ali <span>Camur</span></a>
+      <p class="footer-tagline">Fine art metal prints — landscapes &amp; cityscapes, edition of 50.</p>
+    </div>
+
+    <form class="footer-newsletter" id="footerNewsletterForm" action="MAILCHIMP_FORM_ACTION" method="post" target="_blank" rel="noopener">
+      <label for="footerEmail" class="footer-newsletter-label">Follow the New York series</label>
+      <div class="footer-newsletter-row">
+        <input type="email" id="footerEmail" name="EMAIL" placeholder="Your email address" required aria-label="Email address" />
+        <button type="submit" class="btn-subscribe-compact">Subscribe</button>
+      </div>
+      <div class="footer-newsletter-note" id="footerNewsletterNote"></div>
+    </form>
+
+    <div class="footer-links">
+      <a href="/details.html">Details</a>
+      <a href="#" onclick="openContact(); return false;">Contact</a>
+      <a href="https://www.instagram.com/alicamurphotography" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="footerYear"></span> Ali Camur Photography</div>
+</footer>
 
 <!-- INQUIRY MODAL -->
 <div class="modal-overlay" id="modalOverlay">
@@ -1167,6 +1522,20 @@
     g.slides = Array.from(g.el.querySelectorAll('.slide'));
   });
 
+  // Edition social proof: set data-claimed="N" on a .slide (N of 50 sold)
+  // to show "N of 50 claimed" next to that print's edition line. Leave at
+  // 0 (or omit) to show just "Edition of 50" as usual. No public counter —
+  // this is edited by hand per print, not auto-tracked.
+  document.querySelectorAll('.slide').forEach(slide => {
+    const claimed = parseInt(slide.dataset.claimed || '0', 10);
+    if (claimed > 0) {
+      const editionEl = slide.querySelector('.slide-edition');
+      if (editionEl) {
+        editionEl.insertAdjacentHTML('beforeend', ` · <span class="claimed-badge">${claimed} of 50 claimed</span>`);
+      }
+    }
+  });
+
   let activeCat = null;
   let isAnimating = false;
 
@@ -1191,6 +1560,29 @@
       a.classList.toggle('active', a.dataset.cat === activeCat));
   }
 
+  // Slides are absolutely-positioned and stacked in the same viewport rect,
+  // so native loading="lazy" can't tell them apart by scroll position — we
+  // load each slide's real image only when it becomes (or is about to become)
+  // the active one, keyed off data-src/data-srcset.
+  function loadSlideImage(slideEl) {
+    if (!slideEl) return;
+    const img = slideEl.querySelector('picture img');
+    if (!img || !img.dataset.src) return;
+    const source = slideEl.querySelector('picture source');
+    if (source && source.dataset.srcset) {
+      source.srcset = source.dataset.srcset;
+      delete source.dataset.srcset;
+    }
+    img.src = img.dataset.src;
+    delete img.dataset.src;
+  }
+
+  function preloadAround(g) {
+    loadSlideImage(g.slides[g.current]);
+    loadSlideImage(g.slides[(g.current + 1) % g.slides.length]);
+    loadSlideImage(g.slides[(g.current - 1 + g.slides.length) % g.slides.length]);
+  }
+
   function openGallery(cat) {
     if (!galleries[cat]) return;
     const intro = document.getElementById('intro');
@@ -1198,11 +1590,13 @@
       intro.classList.add('hidden');
       setTimeout(() => { intro.style.display = 'none'; }, 400);
     }
+    document.body.classList.remove('intro-lock');
     Object.entries(galleries).forEach(([k, g]) => g.el.classList.toggle('show', k === cat));
     activeCat = cat;
     isAnimating = false;
     const g = galleries[cat];
     g.slides.forEach((s, i) => s.classList.toggle('active', i === g.current));
+    preloadAround(g);
     buildDots(g);
     updateProgress();
     syncNav();
@@ -1218,6 +1612,7 @@
     g.current = (index + g.slides.length) % g.slides.length;
     g.slides[g.current].classList.add('active');
     if (dots[g.current]) dots[g.current].classList.add('active');
+    preloadAround(g);
     updateProgress();
     setTimeout(() => { isAnimating = false; }, FADE_LOCK);
   }
@@ -1232,28 +1627,39 @@
     if (e.key === 'Escape') { closeModal(); closeAbout(); }
   });
 
-  // Scroll / wheel navigation
+  // Scroll / wheel navigation — only while the pointer is over the hero.
+  // Once the page has content below the hero (email section, footer),
+  // wheeling there must scroll the page normally, not flip slides.
   let wheelTimer;
   document.addEventListener('wheel', e => {
+    if (!e.target.closest('#hero')) return; // let the page scroll normally
+    e.preventDefault();
     clearTimeout(wheelTimer);
     wheelTimer = setTimeout(() => {
       if (e.deltaY > 0) nextSlide();
       else prevSlide();
     }, 50);
-  }, { passive: true });
+  }, { passive: false });
 
-  // Touch swipe navigation (mobile / tablet)
-  let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+  // Touch swipe navigation (mobile / tablet) — same hero-only scoping,
+  // so a swipe below the hero scrolls the page instead of changing slides.
+  let touchStartX = 0, touchStartY = 0, touchStartTime = 0, touchInHero = false;
 
   document.addEventListener('touchstart', e => {
     const t = e.changedTouches[0];
     touchStartX = t.clientX;
     touchStartY = t.clientY;
     touchStartTime = Date.now();
+    touchInHero = !!e.target.closest('#hero');
   }, { passive: true });
 
+  document.addEventListener('touchmove', e => {
+    if (touchInHero) e.preventDefault();
+  }, { passive: false });
+
   document.addEventListener('touchend', e => {
-    if (e.target.closest('.btn-inquire, .modal-overlay, .about-panel, nav, .arrow-btn, .counter-dot')) return;
+    if (!touchInHero) return;
+    if (e.target.closest('.btn-inquire, .modal-overlay, .about-panel, nav, .arrow-btn, .counter-dot, .scroll-cue')) return;
     const t = e.changedTouches[0];
     const dx = t.clientX - touchStartX;
     const dy = t.clientY - touchStartY;
@@ -1371,6 +1777,25 @@
           document.getElementById('hamburger').classList.remove('open');
           document.getElementById('navLinks').classList.remove('open');
     }));
+
+  // Newsletter signup — until MAILCHIMP_FORM_ACTION is replaced with a real
+  // Mailchimp form action URL, block submission instead of posting nowhere.
+  const NEWSLETTER_NOTE_IDS = { newsletterForm: 'newsletterNote', footerNewsletterForm: 'footerNewsletterNote' };
+  document.querySelectorAll('#newsletterForm, #footerNewsletterForm').forEach(form => {
+    form.addEventListener('submit', e => {
+      if (form.getAttribute('action') === 'MAILCHIMP_FORM_ACTION') {
+        e.preventDefault();
+        const note = document.getElementById(NEWSLETTER_NOTE_IDS[form.id]);
+        if (note) {
+          note.textContent = 'Signup isn’t connected yet — check back soon.';
+          setTimeout(() => { note.textContent = ''; }, 4000);
+        }
+      }
+    });
+  });
+
+  const footerYear = document.getElementById('footerYear');
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
 
   updateProgress();
 </script>
